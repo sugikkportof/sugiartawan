@@ -1,272 +1,674 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GEDE SUGIARTAWAN | Creative Digital Craftsman</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GEDE Sugiartawan — Digital Asset Forger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{outfit:['Outfit','sans-serif']},colors:{void:'#050505',surface:'#111111',cyber:'#00E5FF','cyber-dim':'rgba(0,229,255,0.12)',snow:'#FAFAFA',muted:'#888888'},letterSpacing:{widest2:'0.35em',widest3:'0.5em'},boxShadow:{'cyber-sm':'0 0 16px rgba(0,229,255,0.2)','cyber-md':'0 0 40px rgba(0,229,255,0.25)','cyber-lg':'0 0 80px rgba(0,229,255,0.2)'},animation:{pulse:'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite'}}}};
+</script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Outfit',sans-serif;background:#050505;color:#FAFAFA;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(0,229,255,0.25);color:#fff}
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            heading: ['Syne', 'sans-serif'],
-            body: ['Inter', 'sans-serif'], /* DIUBAH MENJADI FONT ELEGAN INTER */
-          },
-          colors: {
-            gelap: '#0A0A0A',       /* Hitam Super Premium */
-            gelapTerang: '#141414', /* Latar Belakang Kartu */
-            putih: '#F2F2F2',      /* Teks Utama */
-            abu: '#A0A0A0',        /* Teks Deskripsi */
-            aksen: '#00E5FF',      /* Electric Blue (Warna Hidup) */
-            aksenMeredup: 'rgba(0, 229, 255, 0.1)'
-          }
-        }
-      }
-    }
-  </script>
+/* Grain */
+body::before{content:'';position:fixed;inset:0;background-image:url('https://i.postimg.cc/85z1X2M5/grain.png');background-size:200px 200px;opacity:0.03;pointer-events:none;z-index:9999;mix-blend-mode:overlay}
 
-  <style>
-    /* BASE & SMOOTH SCROLL */
-    html { scroll-behavior: smooth; overflow-x: hidden; background-color: #0A0A0A; color: #F2F2F2; font-family: 'Inter', sans-serif; }
-    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
-    
-    /* CUSTOM SCROLLBAR (PREMIUM LOOK) */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #0A0A0A; }
-    ::-webkit-scrollbar-thumb { background: #00E5FF; border-radius: 10px; }
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#050505}
+::-webkit-scrollbar-thumb{background:#00E5FF;border-radius:2px}
 
-    /* TEXT SELECTION */
-    ::selection { background-color: #00E5FF; color: #0A0A0A; }
+/* Custom cursor */
+*{cursor:none!important}
+#cur{position:fixed;width:10px;height:10px;background:#00E5FF;border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;mix-blend-mode:difference}
+#cur-r{position:fixed;width:38px;height:38px;border:1px solid rgba(0,229,255,0.45);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .3s,background .3s}
+.cur-big{width:60px!important;height:60px!important;border-color:rgba(0,229,255,0.7)!important;background:rgba(0,229,255,0.04)!important}
 
-    /* ELITE GLASSMORPHISM CARDS with HOVER BORDER ANIMATION */
-    .glass-card { 
-      background: rgba(20, 20, 20, 0.7); 
-      backdrop-filter: blur(20px); 
-      border-radius: 20px; 
-      padding: 2.5rem; 
-      position: relative;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid rgba(255, 255, 255, 0.03); /* Border dasar super tipis */
-    }
+/* Disable Custom Cursor on Touch Devices (Mobile Fix) */
+@media (pointer: coarse) {
+  #cur, #cur-r { display: none !important; }
+  * { cursor: auto !important; }
+}
 
-    /* Animasi Kolom Keahlian yang "Niat" */
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      padding: 2px; /* Tebal Border Animasi */
-      background: linear-gradient(135deg, transparent, rgba(0, 229, 255, 0.3), transparent);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
+/* Navbar */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .45s cubic-bezier(.4,0,.2,1)}
+#nav.sc{background:rgba(5,5,5,0.94);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-bottom:1px solid rgba(255,255,255,0.05);box-shadow:0 4px 48px rgba(0,0,0,.7)}
 
-    .glass-card:hover { 
-      transform: translateY(-8px) scale(1.02); 
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); 
-    }
+/* Nav link */
+.nl{position:relative;padding-bottom:2px;font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#888;transition:color .3s}
+.nl::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#00E5FF;transition:width .35s cubic-bezier(.4,0,.2,1)}
+.nl:hover{color:#00E5FF}
+.nl:hover::after{width:100%}
 
-    .glass-card:hover::before {
-      opacity: 1; /* Nyala pas di-hover */
-    }
+/* Section eyebrow */
+.ey{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.ey-line{width:36px;height:1px;background:linear-gradient(90deg,#00E5FF,transparent);display:inline-block;flex-shrink:0}
+.ey-txt{font-size:.62rem;font-weight:500;letter-spacing:.45em;text-transform:uppercase;color:#00E5FF}
 
-    /* BUTTONS (ELITE STYLE) */
-    .btn-premium { background: transparent; color: #00E5FF; border: 2px solid #00E5FF; padding: 0.8rem 2.2rem; border-radius: 50px; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; transition: all 0.4s ease; display: inline-flex; align-items: center; gap: 10px; }
-    .btn-premium:hover { background-color: #00E5FF; color: #0A0A0A; box-shadow: 0 5px 25px rgba(0, 229, 255, 0.5); transform: translateY(-2px); }
+/* Hero photo */
+.hp-wrap{position:relative;display:inline-block}
+.hp-glow{position:absolute;inset:-28px;background:radial-gradient(ellipse at center,rgba(0,229,255,.2) 0%,transparent 70%);filter:blur(28px);z-index:0;border-radius:60% 60% 50% 50%;animation:pg 5s ease-in-out infinite}
+@keyframes pg{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+.hp{position:relative;z-index:1;width:320px;height:400px;object-fit:cover;object-position:top center;border-radius:54% 54% 38% 38%;filter:grayscale(50%);transition:filter .7s cubic-bezier(.4,0,.2,1),transform .5s;border:1px solid rgba(0,229,255,.18);box-shadow:0 0 60px rgba(0,229,255,.1),0 24px 80px rgba(0,0,0,.75)}
+.hp-wrap:hover .hp{filter:grayscale(0%);transform:scale(1.025)}
 
-    /* NAVBAR LINK (CLEAN & ELEGANT) */
-    .nav-link { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(160, 160, 160, 0.8); transition: color 0.3s ease; }
-    .nav-link:hover { color: #F2F2F2; }
+/* Glass card */
+.glass{background:rgba(17,17,17,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.05);border-radius:20px}
 
-    /* LAYOUT UTILITIES */
-    .asymmetrical-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
-  </style>
+/* Glow border hover card */
+.gc{background:rgba(17,17,17,.75);border:1px solid rgba(255,255,255,.05);border-radius:20px;backdrop-filter:blur(16px);transition:border-color .4s,box-shadow .4s,transform .4s}
+.gc:hover{border-color:rgba(0,229,255,.35);box-shadow:0 0 0 1px rgba(0,229,255,.15),0 12px 60px rgba(0,229,255,.1);transform:translateY(-5px)}
+
+/* Milestone card */
+.mc{background:rgba(17,17,17,.8);border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:32px 28px;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.mc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#00E5FF,transparent);transform:scaleX(0);transition:transform .45s}
+.mc:hover{border-color:rgba(0,229,255,.25);transform:translateY(-5px);box-shadow:0 16px 60px rgba(0,0,0,.5),0 0 40px rgba(0,229,255,.07)}
+.mc:hover::after{transform:scaleX(1)}
+
+/* Project card */
+.pc{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.05);transition:transform .5s cubic-bezier(.4,0,.2,1),box-shadow .5s,border-color .4s;background:#111}
+.pc:hover{transform:translateY(-7px);border-color:rgba(0,229,255,.3);box-shadow:0 24px 80px rgba(0,0,0,.65),0 0 60px rgba(0,229,255,.1)}
+.pc img{width:100%;height:220px;object-fit:cover;transition:transform .65s cubic-bezier(.4,0,.2,1),filter .5s}
+.pc:hover img{transform:scale(1.07);filter:brightness(.75)}
+.po{position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,5,5,.97) 0%,rgba(5,5,5,.45) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+
+/* CTA Button */
+.cta{position:relative;display:inline-flex;align-items:center;gap:12px;padding:18px 44px;background:transparent;border:1px solid rgba(0,229,255,.4);border-radius:4px;color:#00E5FF;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;overflow:hidden;transition:all .4s cubic-bezier(.4,0,.2,1)}
+.cta::before{content:'';position:absolute;inset:0;background:#00E5FF;transform:translateX(-101%);transition:transform .4s cubic-bezier(.4,0,.2,1);z-index:0}
+.cta:hover::before{transform:translateX(0)}
+.cta:hover{color:#050505;box-shadow:0 0 48px rgba(0,229,255,.4)}
+.cta>*{position:relative;z-index:1}
+
+/* Chip */
+.chip{display:inline-flex;align-items:center;padding:3px 11px;border:1px solid rgba(0,229,255,.22);border-radius:100px;font-size:.68rem;font-weight:500;color:rgba(0,229,255,.8);letter-spacing:.07em;text-transform:uppercase;background:rgba(0,229,255,.05)}
+
+/* Icon ring */
+.ir{width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,229,255,.22);display:flex;align-items:center;justify-content:center;background:rgba(0,229,255,.05);flex-shrink:0}
+
+/* Ambient orb */
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.12;animation:fo 14s ease-in-out infinite}
+@keyframes fo{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(24px,-18px) scale(1.07)}70%{transform:translate(-18px,22px) scale(.95)}}
+
+/* Hero enter animations */
+@keyframes fsu{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.a1{animation:fsu .9s .1s both}.a2{animation:fsu .9s .25s both}.a3{animation:fsu .9s .42s both}.a4{animation:fsu .9s .58s both}.a5{animation:fsu .9s .74s both}.a6{animation:fsu .9s .9s both}
+
+/* Typing cursor */
+.tc{display:inline-block;width:2px;height:.9em;background:#00E5FF;margin-left:3px;animation:blink 1.1s step-end infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* Stat */
+.sv{font-size:2.6rem;font-weight:800;color:#00E5FF;line-height:1;font-family:'Outfit',sans-serif}
+
+/* Mobile menu */
+#mm{display:none}
+#mm.open{display:flex}
+
+/* Divider */
+.div-h{height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.2),transparent)}
+
+/* Live dot pulse */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+@media(max-width:768px){.hp{width:240px;height:300px}.pc img{height:190px}}
+@media(max-width:480px){.cta{padding:15px 28px;font-size:.72rem}}
+</style>
 </head>
-<body class="antialiased selection:bg-aksen selection:text-gelap">
 
-  <nav class="fixed w-full z-50 top-0 py-6 px-6 md:px-16 transition-all" id="navbar">
-    <div class="max-w-7xl mx-auto flex justify-between items-center relative">
-      <a href="#" class="font-heading font-extrabold text-xs tracking-[0.4em] text-aksen uppercase">P<span class="text-white">o</span>rtfolio</a>
-      
-      <div class="hidden md:flex gap-10">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#contact" class="nav-link">Contact</a>
+<body class="font-outfit bg-void text-snow">
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav id="nav" class="px-6 md:px-14 lg:px-20">
+  <div class="max-w-7xl mx-auto flex items-center justify-between h-20">
+
+    <a href="#" class="font-black uppercase tracking-widest2 text-sm text-snow select-none hover:text-cyber transition-colors duration-300" style="letter-spacing:.35em">
+      PORT<span class="text-cyber">FOLIO</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-10">
+      <a href="#about"        class="nl">About</a>
+      <a href="#milestones"   class="nl">Milestones</a>
+      <a href="#projects"     class="nl">Projects</a>
+      <a href="#contact"
+        class="text-[.72rem] font-semibold uppercase tracking-widest border border-cyber/30 text-cyber px-5 py-2.5 rounded transition-all duration-300 hover:bg-cyber hover:text-void hover:border-cyber">
+        Contact
+      </a>
+    </div>
+
+    <button id="ham" class="md:hidden text-muted hover:text-cyber transition-colors p-1" aria-label="Open menu">
+      <svg id="ham-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg id="ham-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mm" class="flex-col gap-5 pb-8 pt-4 border-t border-white/5">
+    <a href="#about"       class="text-muted hover:text-cyber text-xs uppercase tracking-widest block transition-colors duration-300">About</a>
+    <a href="#milestones"  class="text-muted hover:text-cyber text-xs uppercase tracking-widest block transition-colors duration-300">Milestones</a>
+    <a href="#projects"    class="text-muted hover:text-cyber text-xs uppercase tracking-widest block transition-colors duration-300">Projects</a>
+    <a href="#contact"     class="text-cyber text-xs uppercase tracking-widest block">Contact ↗</a>
+  </div>
+</nav>
+
+<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+
+  <div class="orb w-[500px] h-[500px] bg-cyber -left-32 top-1/4" style="opacity:.12;animation-delay:-2s"></div>
+  <div class="orb w-64 h-64 bg-cyber right-16 bottom-1/4" style="opacity:.07;animation-delay:-8s"></div>
+
+  <div class="absolute inset-0"
+    style="background-image:linear-gradient(rgba(0,229,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.6) 1px,transparent 1px);background-size:64px 64px;opacity:.022;pointer-events:none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-14 lg:px-20 py-24 w-full">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-16 xl:gap-28">
+
+      <div class="flex-1 max-w-xl">
+
+        <div class="a1 ey">
+          <div class="ey-line"></div>
+          <p class="ey-txt">Specialized Digital Asset Forger From Buleleng, Bali</p>
+        </div>
+
+        <h1 class="a2 leading-none">
+          <span class="block font-black uppercase leading-none text-snow"
+            style="font-size:clamp(4.5rem,10vw,7.8rem);letter-spacing:-.02em;text-shadow:0 0 100px rgba(0,229,255,.12)">
+            GEDE
+          </span>
+          <span class="block font-extralight text-snow/65 mt-1"
+            style="font-size:clamp(1.6rem,4vw,3rem);letter-spacing:.28em">
+            Sugiartawan<span class="tc"></span>
+          </span>
+        </h1>
+
+        <p class="a3 mt-8 text-sm font-light leading-relaxed text-muted max-w-md">
+          Crafting precise digital ecosystems sekelas agensi premium internasional.
+          Mengintegrasikan visi desain dengan koding teknis responsif untuk memaksimalkan ROI profil digital.
+        </p>
+
+        <div class="a4 flex flex-wrap gap-2.5 mt-6">
+          <span class="chip">Web Engineering</span>
+          <span class="chip">UI/UX Architecture</span>
+          <span class="chip">Convertial Strategy</span>
+        </div>
+
+        <div class="a5 flex flex-wrap items-center gap-5 mt-10">
+          <a href="#projects" class="cta">
+            <span>View Projects</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact"
+            class="flex items-center gap-2 text-muted hover:text-snow text-xs font-medium uppercase tracking-widest transition-colors duration-300">
+            Initiate Contact
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+
+        <div class="a6 flex flex-wrap gap-8 mt-14 pt-8 border-t border-white/5">
+          <div>
+            <div class="sv">3+</div>
+            <div class="text-muted text-[.68rem] uppercase tracking-widest mt-1 font-light">Projects Live</div>
+          </div>
+          <div class="w-px bg-white/5 self-stretch"></div>
+          <div>
+            <div class="sv">5★</div>
+            <div class="text-muted text-[.68rem] uppercase tracking-widest mt-1 font-light">Client Satisfaction</div>
+          </div>
+          <div class="w-px bg-white/5 self-stretch"></div>
+          <div>
+            <div class="sv">∞</div>
+            <div class="text-muted text-[.68rem] uppercase tracking-widest mt-1 font-light">Digital Vision</div>
+          </div>
+        </div>
       </div>
 
-      <div class="block">
-         <div class="h-1.5 w-1.5 rounded-full bg-aksen animate-pulse"></div>
+      <div class="a3 flex-shrink-0">
+        <div class="hp-wrap">
+          <div class="hp-glow"></div>
+          <img src="https://i.postimg.cc/j2p4GZFF/IMG-20260312-WA0015.jpg" alt="Gede Sugiartawan" class="hp"/>
+          <div class="absolute -bottom-3 -right-3 w-14 h-14 border-r-2 border-b-2 border-cyber/40 rounded-br-2xl z-10 pointer-events-none"></div>
+          <div class="absolute -top-3 -left-3 w-10 h-10 border-l-2 border-t-2 border-cyber/30 rounded-tl-2xl z-10 pointer-events-none"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+    <div class="w-px h-14 bg-gradient-to-b from-cyber/50 to-transparent"></div>
+    <span class="text-cyber/35 text-[.58rem] uppercase tracking-widest">Scroll</span>
+  </div>
+</section>
+
+<section id="about" class="py-36 relative overflow-hidden">
+  <div class="div-h absolute top-0 left-0 right-0"></div>
+  <div class="orb w-96 h-96 bg-cyber right-0 top-1/2" style="opacity:.06;animation-delay:-5s"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-14 lg:px-20">
+
+    <div data-aos="fade-up" data-aos-duration="800" class="mb-20">
+      <div class="ey">
+        <div class="ey-line"></div>
+        <span class="ey-txt">Forging VIP Identity</span>
+      </div>
+      <h2 class="font-black uppercase leading-tight"
+        style="font-size:clamp(2rem,5vw,3.6rem);letter-spacing:.04em">
+        About &amp; <span class="text-cyber" style="text-shadow:0 0 48px rgba(0,229,255,.3)">Expertise</span>
+      </h2>
+      <p class="text-muted text-sm font-light leading-relaxed max-w-xl mt-6">
+        Sebagai praktisi muda yang lahir dan besar di Buleleng, Bali — saya membawa pendekatan teknis yang presisi,
+        visi desain yang tajam, dan strategi digital berorientasi ROI. Setiap proyek adalah manifestasi standar
+        kelas agensi internasional.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+
+      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="0" class="gc p-8">
+        <div class="ir mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.5">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <h3 class="text-snow font-bold text-base uppercase tracking-widest mb-3">Web Engineering</h3>
+        <p class="text-muted text-[.83rem] font-light leading-relaxed mb-6">
+          Interface digital responsif, blazing-fast, dan scalable menggunakan Tailwind CSS, AOS, dan arsitektur
+          komponen modern. Dari markup semantik hingga pixel-perfect deployment.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="chip">Tailwind CSS</span><span class="chip">HTML5</span><span class="chip">AOS</span>
+        </div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="110" class="gc p-8">
+        <div class="ir mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <h3 class="text-snow font-bold text-base uppercase tracking-widest mb-3">UI/UX Architecture</h3>
+        <p class="text-muted text-[.83rem] font-light leading-relaxed mb-6">
+          Alur pengguna intuitif &amp; estetika visual memorable. Dari low-fidelity wireframe hingga interactive Figma
+          prototype — setiap keputusan desain berbasis data perilaku pengguna.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="chip">Figma</span><span class="chip">Prototyping</span><span class="chip">UX Research</span>
+        </div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="220" class="gc p-8">
+        <div class="ir mb-6">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.5">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <h3 class="text-snow font-bold text-base uppercase tracking-widest mb-3">Convertial Strategy</h3>
+        <p class="text-muted text-[.83rem] font-light leading-relaxed mb-6">
+          WhatsApp Business API sebagai jalur konversi utama. Copywriting berbasis psikologi persuasif untuk
+          memaksimalkan click-through-rate dan inbound lead generation klien.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="chip">WhatsApp API</span><span class="chip">CRO</span><span class="chip">Copywriting</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="milestones" class="py-36 relative overflow-hidden">
+  <div class="div-h absolute top-0 left-0 right-0"></div>
+  <div class="div-h absolute bottom-0 left-0 right-0"></div>
+  <div class="orb w-[500px] h-[500px] bg-cyber -left-24 bottom-1/4" style="opacity:.06;animation-delay:-4s"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-14 lg:px-20">
+
+    <div data-aos="fade-up" data-aos-duration="800" class="mb-20">
+      <div class="ey">
+        <div class="ey-line"></div>
+        <span class="ey-txt">The Prodigy Journey</span>
+      </div>
+      <h2 class="font-black uppercase leading-tight" style="font-size:clamp(2rem,5vw,3.6rem);letter-spacing:.04em">
+        Strategic <span class="text-cyber" style="text-shadow:0 0 48px rgba(0,229,255,.3)">Milestones</span>
+      </h2>
+      <p class="text-muted text-sm font-light max-w-lg mt-5 leading-relaxed">
+        Setiap pencapaian adalah bukti nyata kapasitas analitik, kepemimpinan strategis, dan disiplin teknis yang terbentuk sejak dini.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="0" class="mc">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-cyber font-bold tracking-widest text-xs opacity-55">01</span>
+          <div class="flex-1 h-px bg-cyber/20"></div>
+        </div>
+        <h3 class="text-snow font-black uppercase leading-tight mb-3" style="font-size:1.05rem;letter-spacing:.12em">
+          Analytical<br/>Excellence
+        </h3>
+        <div class="w-8 h-px bg-cyber/40 mb-4"></div>
+        <p class="text-muted text-[.78rem] font-light italic leading-relaxed">
+          Juara 1 di Kelas — demonstrasi konsistensi akademik dan kapasitas analitik di lingkungan kompetitif.
+        </p>
+        <div class="mt-6"><span class="chip">Academic</span></div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="80" class="mc">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-cyber font-bold tracking-widest text-xs opacity-55">02</span>
+          <div class="flex-1 h-px bg-cyber/20"></div>
+        </div>
+        <h3 class="text-snow font-black uppercase leading-tight mb-3" style="font-size:1.05rem;letter-spacing:.12em">
+          Strategic<br/>Leadership
+        </h3>
+        <div class="w-8 h-px bg-cyber/40 mb-4"></div>
+        <p class="text-muted text-[.78rem] font-light italic leading-relaxed">
+          Koordinator OSIS Sekbid 7 &amp; 4 — memimpin divisi strategis dalam organisasi resmi tingkat sekolah.
+        </p>
+        <div class="mt-6"><span class="chip">Leadership</span></div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="160" class="mc">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-cyber font-bold tracking-widest text-xs opacity-55">03</span>
+          <div class="flex-1 h-px bg-cyber/20"></div>
+        </div>
+        <h3 class="text-snow font-black uppercase leading-tight mb-3" style="font-size:1.05rem;letter-spacing:.12em">
+          High-Precision<br/>Strategy
+        </h3>
+        <div class="w-8 h-px bg-cyber/40 mb-4"></div>
+        <p class="text-muted text-[.78rem] font-light italic leading-relaxed">
+          Juara 1 &amp; MVP Mobile Legends Tournament — ketangkasan strategik real-time dalam environment kompetitif bertekanan tinggi.
+        </p>
+        <div class="mt-6"><span class="chip">Competitive</span></div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="240" class="mc">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-cyber font-bold tracking-widest text-xs opacity-55">04</span>
+          <div class="flex-1 h-px bg-cyber/20"></div>
+        </div>
+        <h3 class="text-snow font-black uppercase leading-tight mb-3" style="font-size:1.05rem;letter-spacing:.12em">
+          Creative<br/>Storytelling
+        </h3>
+        <div class="w-8 h-px bg-cyber/40 mb-4"></div>
+        <p class="text-muted text-[.78rem] font-light italic leading-relaxed">
+          Juara Harapan 1 Video Kreatif Bulan Bahasa Bali — narasi visual memadukan estetika dan pesan kultural.
+        </p>
+        <div class="mt-6"><span class="chip">Creative</span></div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="320" class="mc">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-cyber font-bold tracking-widest text-xs opacity-55">05</span>
+          <div class="flex-1 h-px bg-cyber/20"></div>
+        </div>
+        <h3 class="text-snow font-black uppercase leading-tight mb-3" style="font-size:1.05rem;letter-spacing:.12em">
+          Technical<br/>Discipline
+        </h3>
+        <div class="w-8 h-px bg-cyber/40 mb-4"></div>
+        <p class="text-muted text-[.78rem] font-light italic leading-relaxed">
+          Juara Harapan 2 LTM (PMR) — disiplin prosedural dan ketangguhan mental dalam kondisi lapangan bertekanan.
+        </p>
+        <div class="mt-6"><span class="chip">Discipline</span></div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="400" class="mc" style="background:rgba(0,229,255,.04);border-color:rgba(0,229,255,.18)">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-cyber font-bold tracking-widest text-xs opacity-75">+</span>
+          <div class="flex-1 h-px bg-cyber/20"></div>
+        </div>
+        <h3 class="text-snow font-black uppercase leading-tight mb-3" style="font-size:1.05rem;letter-spacing:.12em">
+          State-Level<br/>Networking
+        </h3>
+        <div class="w-8 h-px bg-cyber/40 mb-4"></div>
+        <p class="text-muted text-[.78rem] font-light italic leading-relaxed">
+          Peserta Jambore Kabupaten &amp; Ruangguru — membangun jaringan lintas institusi dan memperluas kapasitas melalui ekosistem digital nasional.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="chip">Networking</span><span class="chip">Education</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="py-36 relative overflow-hidden">
+  <div class="div-h absolute top-0 left-0 right-0"></div>
+  <div class="orb w-96 h-96 bg-cyber right-0 top-1/2" style="opacity:.05;animation-delay:-6s"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-14 lg:px-20">
+
+    <div data-aos="fade-up" data-aos-duration="800" class="mb-20">
+      <div class="ey">
+        <div class="ey-line"></div>
+        <span class="ey-txt">Elite Showcase</span>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <h2 class="font-black uppercase leading-tight" style="font-size:clamp(2rem,5vw,3.6rem);letter-spacing:.04em">
+          Selected <span class="text-cyber" style="text-shadow:0 0 48px rgba(0,229,255,.3)">Projects</span>
+        </h2>
+        <p class="text-muted text-sm font-light max-w-xs leading-relaxed">
+          Dieksekusi dengan standar agensi premium — presisi teknis, estetika tajam, konversi terukur.
+        </p>
       </div>
     </div>
-  </nav>
 
-  <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 overflow-hidden">
-    <div class="absolute inset-0 z-0 bg-[url('https://i.postimg.cc/85z1X2M5/grain.png')] opacity-[0.03]"></div>
-    
-    <div class="max-w-7xl mx-auto w-full asymmetrical-grid relative z-10 items-center">
-      
-      <div class="col-span-12 md:col-span-7 pr-8" data-aos="fade-right" data-aos-duration="1500">
-        <p class="font-body text-xs md:text-sm tracking-[0.3em] text-abu uppercase mb-6">Creative Digital Craftsman From Buleleng, Bali</p>
-        <h1 class="font-heading text-6xl md:text-8xl lg:text-[100px] text-putih font-extrabold mb-10 leading-[0.95] tracking-tighter">
-          G<span class="text-aksenMeredup text-shadow-[0_0_10px_#00E5FF]">E</span>DE<br> <span class="text-3xl md:text-6xl text-white font-medium tracking-normal block mt-2">Sugiartawan</span>
-        </h1>
-        <p class="font-body text-abu/70 max-w-lg text-sm md:text-base font-light leading-relaxed mb-12">
-          Saya bukan hanya "membuat website". Saya menempa produk digital sekelas agensi jutaan rupiah, menggabungkan desain estetik dengan koding teknis responsif untuk memaksimalkan ROI profil digital Admin.
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+      <div data-aos="fade-right" data-aos-duration="800" class="pc">
+        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=800&q=80"
+          alt="Social Coffee Singaraja"/>
+        <div class="po">
+          <div class="flex items-center gap-2 mb-3"><span class="chip">F&amp;B Premium</span></div>
+          <h3 class="text-snow font-black uppercase tracking-wide leading-tight text-lg mb-2">Social Coffee Singaraja</h3>
+          <p class="text-muted text-[.75rem] font-light leading-relaxed mb-5">
+            Landing page elit Dark Roast dengan form reservasi WhatsApp terintegrasi dan UX berbasis konversi.
+          </p>
+          <a href="https://socialcoffee.vercel.app" target="_blank" rel="noopener"
+            class="inline-flex items-center gap-2 text-cyber text-[.72rem] font-semibold uppercase tracking-widest hover:gap-4 transition-all duration-300">
+            Visit Live
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div data-aos="fade-left" data-aos-duration="800" class="pc">
+        <img src="https://i.postimg.cc/mD8F1Y3v/1000265909.jpg"
+          alt="Bayu Computer Buleleng" style="object-position:center"/>
+        <div class="po">
+          <div class="flex items-center gap-2 mb-3"><span class="chip">IT VIP Service</span></div>
+          <h3 class="text-snow font-black uppercase tracking-wide leading-tight text-lg mb-2">Bayu Computer Buleleng</h3>
+          <p class="text-muted text-[.75rem] font-light leading-relaxed mb-5">
+            Landing page Cyber-Professional dengan katalog service lengkap dan sistem booking digital terintegrasi.
+          </p>
+          <a href="https://bayu-komputer.vercel.app" target="_blank" rel="noopener"
+            class="inline-flex items-center gap-2 text-cyber text-[.72rem] font-semibold uppercase tracking-widest hover:gap-4 transition-all duration-300">
+            Visit Live
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div data-aos="fade-up" data-aos-duration="800" class="pc max-w-2xl mx-auto">
+      <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
+        alt="Reiga Sari Travel Lovina" style="height:260px;object-fit:cover;transition:transform .65s cubic-bezier(.4,0,.2,1),filter .5s"/>
+      <div class="po" style="background:linear-gradient(0deg,rgba(5,5,5,.97) 0%,rgba(5,5,5,.5) 55%,transparent 100%)">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="chip">Luxury Tour & Travel</span>
+          <span class="chip" style="border-color:rgba(0,229,255,.4);color:#00E5FF;background:rgba(0,229,255,.08)">★ High Conversion</span>
+        </div>
+        <h3 class="text-snow font-black uppercase tracking-wide leading-tight text-xl mb-2">Reiga Sari Travel Lovina</h3>
+        <p class="text-muted text-[.75rem] font-light leading-relaxed mb-5 max-w-md">
+          Platform digital pariwisata berstandar internasional. Dirancang khusus untuk menaklukkan market turis asing dengan fitur booking WhatsApp otomatis dan showcase destinasi premium.
         </p>
-        <a href="#projects" class="btn-premium">
-          Lihat Karya Saya
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        <a href="https://reigasari.vercel.app" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-2 text-cyber text-[.72rem] font-semibold uppercase tracking-widest hover:gap-4 transition-all duration-300">
+          Visit Live
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
         </a>
       </div>
-      
-      <div class="col-span-12 md:col-span-5 relative mt-16 md:mt-0 flex justify-center items-center" data-aos="fade-left" data-aos-duration="1500">
-         <div class="absolute inset-0 bg-aksen rounded-full blur-[100px] opacity-10"></div>
-         <div class="relative rounded-t-[150px] rounded-b-[40px] overflow-hidden border-2 border-aksen/30 p-2 shadow-[0_0_50px_rgba(0,229,255,0.1)]">
-            <img src="https://i.postimg.cc/j2p4GZFF/IMG-20260312-WA0015.jpg" alt="Gede Sugiartawan Portrait" class="w-full max-w-[320px] rounded-t-[140px] rounded-b-[35px] object-cover aspect-[3/4] filter grayscale-[40%] hover:grayscale-0 transition-all duration-700">
-         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="about" class="py-24 px-6 md:px-16 bg-gelap relative border-t-2 border-aksen/5">
-    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-aksen/5 rounded-full blur-[120px] pointer-events-none transform -translate-x-1/2 -translate-y-1/2"></div>
-    
-    <div class="max-w-7xl mx-auto grid md:grid-cols-12 gap-12 items-center relative z-10">
-      <div class="md:col-span-5" data-aos="fade-up">
-        <h2 class="font-heading text-4xl md:text-6xl font-extrabold text-putih leading-tight mb-6">Membangun<br><span class="italic text-aksen font-black">Identitas Elit.</span></h2>
-        <div class="h-1 w-24 bg-aksen rounded-full mb-6"></div>
-      </div>
-      
-      <div class="md:col-span-7 font-body text-abu/80 text-sm md:text-base font-light leading-relaxed space-y-5" data-aos="fade-up" data-aos-delay="100">
-        <p>Dengan latar belakang kuat dalam pengembangan teknis dan desain UI/UX, saya menempa solusi digital berkinerja tinggi. Saya mengutamakan presisi, kebersihan kode, dan performa tinggi untuk menjamin audiens kepada profil bisnis Admin.</p>
-        <p>Saya adalah Local Talent yang memahami standar premium agensi internasional, siap membantu mewujudkan produk digital yang estetik, responsif, dan dioptimalkan (SEO) untuk mencapai target bisnis yang diharapkan klien.</p>
-      </div>
     </div>
 
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 relative z-10">
-      
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="text-aksen text-3xl mb-8">🖥️</div>
-        <h3 class="font-heading font-bold text-xl text-putih mb-4">Web Development</h3>
-        <p class="font-body text-xs md:text-sm font-light text-abu/70 mb-5 leading-relaxed">Membangun platform digital yang responsif, cepat, dan SEO-friendly menggunakan koding kustom performa tinggi.</p>
-        <span class="text-[10px] font-bold text-aksen bg-aksen/5 px-4 py-1.5 rounded-full border border-aksen/20 uppercase tracking-widest">Tailwind & AOS</span>
+  </div>
+</section>
+
+<section id="contact" class="py-36 relative overflow-hidden text-center">
+  <div class="div-h absolute top-0 left-0 right-0"></div>
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-cyber pointer-events-none" style="filter:blur(130px);opacity:.04"></div>
+
+  <div class="max-w-4xl mx-auto px-6 md:px-14 relative z-10">
+    <div data-aos="fade-up" data-aos-duration="900">
+
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="ey-line"></div>
+        <span class="ey-txt">Initiate Dialogue</span>
+        <div class="ey-line" style="transform:rotate(180deg)"></div>
       </div>
 
-      <div class="glass-card md:-translate-y-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="text-aksen text-3xl mb-8">🎨</div>
-        <h3 class="font-heading font-bold text-xl text-putih mb-4">UI/UX Design</h3>
-        <p class="font-body text-xs md:text-sm font-light text-abu/70 mb-5 leading-relaxed">Mendesain antarmuka pengguna yang modern, estetik, intuitif, dan fokus pada konversi, sekelas agensi premium.</p>
-        <span class="text-[10px] font-bold text-aksen bg-aksen/5 px-4 py-1.5 rounded-full border border-aksen/20 uppercase tracking-widest">Figma Prototypes</span>
-      </div>
+      <h2 class="font-black uppercase leading-none mb-6" style="font-size:clamp(3rem,8vw,5.5rem);letter-spacing:.02em">
+        Let's <span class="text-cyber" style="text-shadow:0 0 70px rgba(0,229,255,.45)">Build</span>
+      </h2>
+      <p class="font-extralight text-snow/55 mb-4" style="font-size:clamp(1.3rem,3vw,2.4rem);letter-spacing:.25em">
+        Something Extraordinary
+      </p>
 
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="400">
-        <div class="text-aksen text-3xl mb-8">🚀</div>
-        <h3 class="font-heading font-bold text-xl text-putih mb-4">Digital Strategy</h3>
-        <p class="font-body text-xs md:text-sm font-light text-abu/70 mb-5 leading-relaxed">Mengintegrasikan fitur strategis seperti booking WhatsApp otomatis untuk memaksimalkan ROI produk digital Admin.</p>
-        <span class="text-[10px] font-bold text-aksen bg-aksen/5 px-4 py-1.5 rounded-full border border-aksen/20 uppercase tracking-widest">WhatsApp Leads</span>
-      </div>
-    </div>
-  </section>
+      <p class="text-muted text-sm font-light leading-relaxed max-w-md mx-auto mb-14">
+        Siap mengekspansi kehadiran digital Anda ke standar premium internasional?
+        Mulai konsultasi eksklusif — tanpa biaya awal, penuh komitmen profesional.
+      </p>
 
-  <section id="projects" class="py-24 px-6 md:px-16 bg-gelap relative border-t-2 border-aksen/5">
-    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-aksen/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <a href="https://wa.me/6281912398196" target="_blank" rel="noopener" class="cta mx-auto" style="border-radius:6px;padding:20px 52px;font-size:.82rem">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.123 1.534 5.854L0 24l6.334-1.51A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.653-.52-5.162-1.423l-.369-.221-3.764.897.933-3.655-.242-.38A9.936 9.936 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        <span>Mulai Diskusi via WhatsApp</span>
+      </a>
 
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div class="flex items-center justify-between mb-16 border-b border-gray-900 pb-8" data-aos="fade-up">
-        <h2 class="font-heading text-4xl font-bold text-putih">Seleksi <span class="text-aksen font-black">Karya Terbaik</span></h2>
-        <a href="https://vercel.com/gede-sugiartawan" target="_blank" class="font-body text-xs font-semibold text-abu hover:text-aksen transition-colors uppercase tracking-widest">Lihat Semua di Vercel ➔</a>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        
-        <div class="group overflow-hidden rounded-3xl relative" data-aos="zoom-in-up" data-aos-duration="1000">
-          <div class="absolute inset-0 bg-gradient-to-t from-gelap/90 via-gelap/50 to-transparent z-10 opacity-90 group-hover:opacity-100 transition-all duration-500"></div>
-          <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=800&q=80" alt="Social Coffee Singaraja Website" class="w-full h-full object-cover fixed-attachment group-hover:scale-105 transition-transform duration-700 aspect-[5/4]">
-          <div class="absolute bottom-0 left-0 p-8 z-20 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-            <span class="text-[10px] font-bold text-aksen bg-aksen/10 px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">F&B Premium</span>
-            <h4 class="font-heading text-2xl font-bold text-putih mb-2">Social Coffee Singaraja</h4>
-            <p class="font-body text-xs text-abu/70 mb-4 font-light max-w-sm">Website landing page elit "Dark Roast" dengan katalog menu dan form reservasi WhatsApp.</p>
-            <a href="https://socialcoffee.vercel.app" target="_blank" class="text-xs font-semibold text-aksen border-b-2 border-aksen/30 pb-1 hover:border-aksen transition-colors">Lihat Project ➔</a>
-          </div>
+      <div class="mt-14 flex items-center justify-center gap-6 flex-wrap">
+        <div class="flex items-center gap-2 text-muted text-[.7rem] font-light">
+          <span class="w-2 h-2 rounded-full bg-cyber block" style="animation:blink 2s ease-in-out infinite"></span>
+          Available for Projects
         </div>
-
-        <div class="group overflow-hidden rounded-3xl relative" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="100">
-          <div class="absolute inset-0 bg-gradient-to-t from-gelap/90 via-gelap/50 to-transparent z-10 opacity-90 group-hover:opacity-100 transition-all duration-500"></div>
-          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Bayu Computer Buleleng Website" class="w-full h-full object-cover fixed-attachment group-hover:scale-105 transition-transform duration-700 aspect-[5/4]">
-          <div class="absolute bottom-0 left-0 p-8 z-20 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-            <span class="text-[10px] font-bold text-aksen bg-aksen/10 px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">IT & Hardware Service</span>
-            <h4 class="font-heading text-2xl font-bold text-putih mb-2">Bayu Computer Buleleng</h4>
-            <p class="font-body text-xs text-abu/70 mb-4 font-light max-w-sm">Landing page "Cyber-Professional" dengan katalog service dan form konsultasi teknis via WhatsApp.</p>
-            <a href="https://bayu-komputer.vercel.app" target="_blank" class="text-xs font-semibold text-aksen border-b-2 border-aksen/30 pb-1 hover:border-aksen transition-colors">Lihat Project ➔</a>
-          </div>
-        </div>
+        <div class="w-px h-3 bg-white/10"></div>
+        <span class="text-muted text-[.7rem] font-light">Buleleng, Bali — Indonesia</span>
+        <div class="w-px h-3 bg-white/10"></div>
+        <span class="text-muted text-[.7rem] font-light">Response &lt; 24 Hours</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-12 mb-8">
-        <div class="md:col-start-3 md:col-span-8 group overflow-hidden rounded-3xl relative" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="200">
-          <div class="absolute inset-0 bg-gradient-to-t from-gelap/90 via-gelap/50 to-transparent z-10 opacity-90 group-hover:opacity-100 transition-all duration-500"></div>
-          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80" alt="Executive Branding Website Jimat" class="w-full h-full object-cover fixed-attachment group-hover:scale-105 transition-transform duration-700 aspect-[5/2]">
-          <div class="absolute bottom-0 left-0 p-8 z-20 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-            <span class="text-[10px] font-bold text-aksen bg-aksen/10 px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Personal Branding</span>
-            <h4 class="font-heading text-2xl font-bold text-putih mb-2">Website Executive Pak Jimat</h4>
-            <p class="font-body text-xs text-abu/70 mb-4 font-light max-w-md">Platform personal branding Kepala Sekolah & Penulis dengan tema nasionalis premium Merah-Putih dan Perpustakaan Digital.</p>
-            <a href="https://madejimat.vercel.app" target="_blank" class="text-xs font-semibold text-aksen border-b-2 border-aksen/30 pb-1 hover:border-aksen transition-colors">Lihat Project ➔</a>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="contact" class="py-32 px-6 md:px-16 bg-gelap flex items-center justify-center text-center relative overflow-hidden border-t-2 border-aksen/5">
-     <div class="absolute inset-0 z-0 bg-[url('https://i.postimg.cc/85z1X2M5/grain.png')] opacity-[0.03]"></div>
-     
-     <div class="max-w-xl mx-auto relative z-10" data-aos="fade-up">
-       <div class="inline-block bg-aksen/5 text-aksen text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase border border-aksen/20">Let's Create Together</div>
-       <h2 class="font-heading text-5xl md:text-7xl font-extrabold text-putih leading-tight mb-8 tracking-tighter">
-         Mari Bahas <br> <span class="italic text-aksen font-black">Ide Besar Lu.</span>
-       </h2>
-       <p class="font-body text-abu/70 text-sm md:text-base font-light leading-relaxed mb-12">
-         Peluang untuk menaikkan standar profil digital lu sudah ada di depan mata. Jangan ragu untuk mendiskusikan konsep website premium yang lu impikan. Saya siap membantu lu mengonlinekannya dengan eksekusi elit.
-       </p>
-       <a href="https://wa.me/6281912398196" target="_blank" class="btn-premium">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.347-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          Gass via WhatsApp
-       </a>
-     </div>
-  </section>
+<footer class="border-t border-white/5 py-10">
+  <div class="max-w-7xl mx-auto px-6 md:px-14 lg:px-20 flex flex-col md:flex-row items-center justify-between gap-4">
+    <a href="#" class="font-black uppercase text-snow" style="letter-spacing:.35em;font-size:.8rem">
+      PORT<span class="text-cyber">FOLIO</span>
+    </a>
+    <p class="text-muted text-[.68rem] font-light tracking-widest text-center">
+      © 2026 GEDE Sugiartawan &middot; Crafted with Precision &middot; Buleleng, Bali
+    </p>
+    <a href="https://wa.me/6281912398196" target="_blank" rel="noopener"
+      class="text-muted hover:text-cyber text-[.68rem] uppercase tracking-widest transition-colors duration-300">
+      +62 819 1239 8196
+    </a>
+  </div>
+</footer>
 
-  <footer class="py-12 px-6 md:px-16 bg-gelap text-center text-abu/40 text-xs tracking-wider border-t border-gray-900">
-    <p class="font-bold text-putih/60 mb-1">G<span class="text-aksen">E</span>DE SUGIARTAWAN</p>
-    <p>© 2026 Crafted With Passion. Crafted by Gede Sugiartawan.</p>
-  </footer>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+(function(){
+  'use strict';
 
-  <script>
-    // INIT AOS (ANIMATE ON SCROLL) - PRESTASI KEHIDUPAN LU DISINI
-    AOS.init({ once: true, duration: 1200, offset: 50, easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)' });
+  /* AOS */
+  AOS.init({once:true,easing:'cubic-bezier(0.4,0,0.2,1)',duration:800,offset:60});
 
-    // NAVBAR SCROLL EFFECT (BLUR & TRANSPARANSI)
-    window.addEventListener('scroll', () => {
-      const nav = document.getElementById('navbar');
-      if (window.scrollY > 20) {
-        nav.classList.add('bg-gelap/80', 'backdrop-blur-xl', 'py-4', 'shadow-2xl');
-        nav.classList.remove('py-6');
-      } else {
-        nav.classList.remove('bg-gelap/80', 'backdrop-blur-xl', 'py-4', 'shadow-2xl');
-        nav.classList.add('py-6');
-      }
+  /* Custom cursor */
+  var cur=document.getElementById('cur');
+  var ring=document.getElementById('cur-r');
+  var mx=0,my=0,rx=0,ry=0;
+
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+
+  (function animRing(){
+    rx+=(mx-rx)*0.13;ry+=(my-ry)*0.13;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  var hoverEls=document.querySelectorAll('a,button,.pc,.mc,.gc');
+  hoverEls.forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.classList.add('cur-big')});
+    el.addEventListener('mouseleave',function(){ring.classList.remove('cur-big')});
+  });
+
+  document.addEventListener('mouseleave',function(){cur.style.opacity='0';ring.style.opacity='0'});
+  document.addEventListener('mouseenter',function(){cur.style.opacity='1';ring.style.opacity='1'});
+
+  /* Navbar scroll */
+  var nav=document.getElementById('nav');
+  window.addEventListener('scroll',function(){
+    nav.classList.toggle('sc',window.scrollY>40);
+  },{passive:true});
+
+  /* Mobile menu */
+  var ham=document.getElementById('ham');
+  var mm=document.getElementById('mm');
+  var hamOpen=document.getElementById('ham-open');
+  var hamClose=document.getElementById('ham-close');
+  ham.addEventListener('click',function(){
+    mm.classList.toggle('open');
+    hamOpen.classList.toggle('hidden');
+    hamClose.classList.toggle('hidden');
+  });
+  mm.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      mm.classList.remove('open');
+      hamOpen.classList.remove('hidden');
+      hamClose.classList.add('hidden');
     });
-  </script>
+  });
+
+  /* Smooth scroll with nav offset */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href').slice(1);
+      var el=document.getElementById(id);
+      if(!el)return;
+      e.preventDefault();
+      var top=el.getBoundingClientRect().top+window.scrollY-84;
+      window.scrollTo({top:top,behavior:'smooth'});
+    });
+  });
+
+  /* Project card image hover (fallback for CSS-less touch) */
+  document.querySelectorAll('.pc').forEach(function(card){
+    var img=card.querySelector('img');
+    if(!img)return;
+    card.addEventListener('mouseenter',function(){img.style.transform='scale(1.07)';img.style.filter='brightness(.75)'});
+    card.addEventListener('mouseleave',function(){img.style.transform='';img.style.filter=''});
+  });
+
+})();
+</script>
+
 </body>
 </html>
